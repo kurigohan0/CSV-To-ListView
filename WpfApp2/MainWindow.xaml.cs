@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Binding = System.Windows.Data.Binding;
 using System.IO;
 using MessageBox = System.Windows.MessageBox;
@@ -31,21 +22,21 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-
             try
             {
                 if (button.Tag.ToString() == "BrowseButton")
                 {
-                    OpenFileDialog openFileDialog1 = new OpenFileDialog();
-                    openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
-                    openFileDialog1.Filter = "CSV files (*.csv)|*.CSV";
-                    openFileDialog1.FilterIndex = 2;
+                    OpenFileDialog openFileDialog1 = new OpenFileDialog
+                    {
+                        InitialDirectory = Environment.CurrentDirectory,
+                        Filter = "CSV files (*.csv)|*.CSV",
+                        FilterIndex = 2
+                    };
                     openFileDialog1.ShowDialog();
                     textBox1.Text = openFileDialog1.FileName;
                 }
@@ -64,7 +55,6 @@ namespace WpfApp2
                     {
                         fileRow = fileReader.ReadLine();
                         fileDataField = fileRow.Split(delimiter);
-
                         list = fileDataField.ToList<string>();
 
                         for (int i = 0; i < list.Count; i++)
@@ -82,14 +72,11 @@ namespace WpfApp2
                         MainListView.Items.Add(list);
                     }
                     fileReader.Close();
-
                 } 
-
             }
             catch (FormatException)
             {
                 MessageBox.Show("Заполните все поля корректно.");
-
             }
             catch (NullReferenceException)
             {
