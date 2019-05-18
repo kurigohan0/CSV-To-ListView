@@ -83,7 +83,7 @@ namespace WpfApp2
                     }
                     fileReader.Close();
 
-                }
+                } 
 
             }
             catch (FormatException)
